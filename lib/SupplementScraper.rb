@@ -3,8 +3,8 @@
 
 
    def initialize
-     @supplement = Supplement.new
      @doc = Nokogiri::HTML(open("https://www.globalhealingcenter.com/supplements.html"))
+     self.scrape_supplements 
    end
 
    def scrape_supplements
@@ -17,7 +17,7 @@
        s.rating_page = Nokogiri::HTML(open(s.page)).search("#product_addtocart_form > div.product-name.sm-hide.md-hide.lg-hide.px2 > a:nth-child(4)").attr("href").text
        s.rating = Nokogiri::HTML(open(s.rating_page)).search("#product-reviews-info > div > p span.review-rating-literal").text.gsub(/[()]/,"")
        s.availability = Nokogiri::HTML(open(s.page)).search("#product_addtocart_form > div.product-shop.sm-col.sm-col-8.md-col-7.px2 > p.availability.in-stock.m0 > span").text
-
+     end
    end
 
  end

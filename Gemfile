@@ -3,7 +3,10 @@ source "http://rubygems.org"
 git_source(:github) {|repo_name| "https://github.com/#{repo_name}" }
 
 # Specify your gem's dependencies in SupplementSearcher.gemspec
+source "http://rubygems.org"
+
 gemspec
+
 
 gem 'nokogiri', '~> 1.8', '>= 1.8.4'
 gem 'open_uri_redirections', '~> 0.2.1'
