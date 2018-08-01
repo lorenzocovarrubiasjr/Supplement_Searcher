@@ -42,14 +42,20 @@ class SupplementSearcherController
         sleep(0.5)
 
   puts "
+  ╔══════════════════════════════════════════════════╗
 
-          Welcome to Supplement Searcher!
+                  ╔╦╦╦═╦╗╔═╦═╦══╦═╗
+                  ║║║║╩╣╚╣═╣║║║║║╩╣
+                  ╚══╩═╩═╩═╩═╩╩╩╩═╝
+            Welcome to Supplement Searcher!
           "
           sleep(0.5)
   puts "Your CLI Destination to shop and compare supplements!
+
+  ╚══════════════════════════════════════════════════╝
           "
           sleep(0.5)
-          puts "Loading..."
+          puts "              Loading..."
 
         s = SupplementScraper.new
 
@@ -58,47 +64,86 @@ class SupplementSearcherController
 
 
       def users_options
-        puts "Would you like to:
+        puts "
+============= Would you like to: =============
+
         1) See all products
         2) See top 10 rated products
-        3) List products by price - low to high "
+        3) List products by price - low to high
+
+===============================================
+        "
 
         users_choice = gets.chomp
 
           if users_choice == "1"
             Supplement.supplements_print
-            self.like_to_know_more
+            self.like_to_know_more("all")
             self.like_to_do_more
           elsif users_choice == "2"
-            Supplement.topten
-
+            Supplement.create_topten
+            self.like_to_know_more("topten")
+            self.like_to_do_more
           elsif users_choice == "3"
-            Supplement.price_lowtohigh
-
+            Supplement.create_price_lowtohigh
+            self.like_to_know_more("price_lowtohigh")
+            self.like_to_do_more
           else
+            puts "
+            Please select from the options provided
+            "
             self.users_options
           end
       end
 
       def like_to_do_more
-        puts "Would you like to do something else?
-(Y/N)"
-        users_choice = gets.chomp
+        puts "＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿
+| Windows Dialog　　　　　　　　　　　　　　 [－] [口] [×]   |
+| ￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣￣
+|       　Would you like to do something else?
+|
+|　 　　   ＿＿＿＿＿＿　　　　　　　　  ＿＿＿＿＿＿　　
+| 　 　   ｜　 Y　　 |　　　 　         |　   N    |
+|　 　　   ￣￣￣￣￣￣　　　　　　　　  ￣￣￣￣￣￣　
+|＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿＿|"
+        users_choice = gets.chomp.capitalize
         if users_choice == "Y"
           self.users_options
+        elsif users_choice == "N"
+          puts "Thank you come again!"
+          sleep(0.5)
+          abort("
+✄╔═══╦═╗╔═╦══╦════╗
+✄║╔══╩╗╚╝╔╩╣╠╣╔╗╔╗║
+✄║╚══╗╚╗╔╝─║║╚╝║║╚╝
+✄║╔══╝╔╝╚╗─║║──║║
+✄║╚══╦╝╔╗╚╦╣╠╗─║║
+✄╚═══╩═╝╚═╩══╝─╚╝
+
+")
         else
           exit
         end
       end
 
-      def like_to_know_more
-        puts "Which product would you like to know more about?"
+      def like_to_know_more(array)
+        puts "
+        Which product would you like to know more about?
+        "
         users_choice = gets.chomp
-        if Supplement.all[users_choice.to_i-1] != nil
-            Supplement.display_product(users_choice)
+        if array == "all" && Supplement.all[users_choice.to_i-1] != nil
+              Supplement.display_product("all", users_choice)
+        elsif array == "topten" && Supplement.topten[users_choice.to_i-1] != nil
+              Supplement.display_product("topten", users_choice)
+        elsif array == "price_lowtohigh" && Supplement.price_lowtohigh[users_choice.to_i-1] != nil
+              Supplement.display_product("price_lowtohigh", users_choice)
         else
-          self.like_to_know_more
+              puts "
+              Please make a selection from the options provided!
+              "
+              self.like_to_know_more(array)
         end
+
       end
 
   end
