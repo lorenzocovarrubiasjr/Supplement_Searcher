@@ -8,7 +8,7 @@ source "http://rubygems.org"
 gemspec
 
 
-gem 'nokogiri', '~> 1.8', '>= 1.8.4'
+gem 'nokogiri', '~> 1.10'
 gem 'open_uri_redirections', '~> 0.2.1'
 gem 'require_all', '~> 2.0'
 gem 'rake', '~> 12.3', '>= 12.3.1'
